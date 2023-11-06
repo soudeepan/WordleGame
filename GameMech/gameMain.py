@@ -47,6 +47,6 @@ def compare(genList, userList):  #Function for comparing
             if not_present:
                 print(Fore.CYAN + user_item, end=" ")
 
-gl = newWord()
-ul = takeInput()
+gl = newWord()#genList
+ul = takeInput()#userList
 compare(gl, ul)
