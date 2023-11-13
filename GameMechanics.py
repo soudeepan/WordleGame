@@ -1,8 +1,5 @@
 from tkinter import *
 
-
-
-
 # def for checking is the input word is not empty or invalid and has length of 5
 
 def isValid(word):
@@ -24,7 +21,7 @@ def changeSubheading():
         subLabel.config(text="Enter Guess words")
         inputCounter+=1
     
-    elif inputCounter==7  and isValid(check_word) :
+    elif inputCounter==6  and isValid(check_word) :
         subLabel.config(text="YOU LOSE!")
         enterButton.config(DISABLED)
 
@@ -38,7 +35,6 @@ def changeSubheading():
 def updateLabels(word):
 
     global wordCount
-    
 
     for i in range(5):
         labels[wordCount].config(text=word[i])
@@ -91,7 +87,7 @@ for row in range(6):
     for col in range(5):
         xbox = x_start + col * 40
         text = " "
-        
+
         label = Label(root, borderwidth=box_borderwidth, relief=box_relief, bg=box_bg, fg=box_fg,
                       height=box_height, width=box_width, text=text, font=box_font)
         label.place(x=xbox, y=ybox)
