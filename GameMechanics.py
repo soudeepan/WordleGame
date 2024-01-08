@@ -1,8 +1,27 @@
 from tkinter import *
 
+
+# list of all words 
+
+with open("wordList.txt") as f:
+        wordlist = list(f)
+
+
+# def for checking if word exists in the wordlist
+
+def presentInList(word):
+
+    global wordlist
+    if(word in wordlist):
+        return True
+    return False
+
+
+
 # def for checking is the input word is not empty or invalid and has length of 5
 
 def isValid(word):
+
     if len(word) == 5:
         return True
     return False
@@ -23,7 +42,6 @@ def change_heading():
     elif inputCounter==6 and isValid(check_word) :
         subLabel.config(text="YOU LOSE!")
         enterButton.config(DISABLED)
-
 
     elif isValid(check_word):
         inputCounter+=1
