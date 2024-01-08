@@ -14,7 +14,8 @@ for words in mylist:
 
 
 genList = list((random.choice(wordList)).upper()) # contains the word to guess in a list 
-print(genList)
+
+# print(genList)
 
 
 def presentInList(word):
@@ -40,70 +41,57 @@ inputCounter=0
 name="User"
 
 def change_heading():
-    
-    global inputCounter
-    global name
-    check_word=inputBox.get()
+    global inputCounter, name
+    check_word = inputBox.get()
 
-    if inputCounter==0:
+    if inputCounter == 0:
         name = inputBox.get()
         subLabel.config(text=name + " ! Enter your Guess word")
-        inputCounter+=1
-    
-    elif inputCounter==6 and isValid(check_word) :
+        inputCounter += 1
+    elif inputCounter == 6 and isValid(check_word):
         subLabel.config(text="YOU LOSE!")
         enterButton.config(DISABLED)
-
     elif isValid(check_word):
         subLabel.config(text=name + " ! Enter your Guess word")
-        inputCounter+=1
+        inputCounter += 1
     else:
         subLabel.config(text="Word not found in wordlist. Enter another word!")
 
 
-    
-# def for updating the labels
-
-
 def updateLabels(inputWord):
-    
-    inputWord.strip()
-    inputWord = inputWord.upper()
+    inputWord = inputWord.strip().upper()
     userList = list(inputWord)
 
     for col in range(5):
-        exec(f"label_{inputCounter-1}_{col}.config(text=inputWord[col])")
-
-        #print(userList[col] +"  "+ genList[col]+"\n")
+        exec(f"label_{inputCounter - 1}_{col}.config(text=inputWord[col])")
 
         if userList[col] == genList[col]:
-            exec(f"label_{inputCounter-1}_{col}.config(bg=box_green,fg=white)")
+            exec(f"label_{inputCounter - 1}_{col}.config(bg=box_green,fg=white)")
         elif userList[col] in genList:
-            exec(f"label_{inputCounter-1}_{col}.config(bg=box_yellow,fg=white)")
+            exec(f"label_{inputCounter - 1}_{col}.config(bg=box_yellow,fg=white)")
         else:
-            exec(f"label_{inputCounter-1}_{col}.config(bg=box_grey,fg=white)")
+            exec(f"label_{inputCounter - 1}_{col}.config(bg=box_grey,fg=white)")
 
-    winCheck(userList,genList)
-        
+    winCheck(userList)
+
 # def for performing all functions
 
 def allFunctions(inputWord):
-    
-    
-    if inputCounter in range(1,8) and isValid(inputWord):
+    global inputCounter
+
+    if inputCounter in range(1, 8) and isValid(inputWord):
         updateLabels(inputWord)
 
     change_heading()
+    winCheck(list(inputWord.upper()))  #called the winlist function explicitly
 
 # def for checking winning condition
     
-def winCheck(userList,genList):
-
-    print(userList == genList)
-
-    if(userList == genList):
+def winCheck(userList):
+    global inputCounter
+    if userList == genList:
         subLabel.config(text="CONGRATULATIONS! YOU WON")
-        enterButton.config(DISABLED)
+        enterButton.config(state="disabled")
 
 
 
@@ -149,10 +137,10 @@ box_fg = "#FFFFFF"
 box_font = ("Roboto", 20)
 
 x_start = 250  # x-coordinate of labels
-y_start = 250  # y-coordinate of labels
+y_start = 300  # y-coordinate of labels
 
 for row in range(6):
-    ybox = y_start + row * 40
+    ybox = y_start + row * 50
     for col in range(5):
         xbox = x_start + col * 40
         text = " "
@@ -161,7 +149,7 @@ for row in range(6):
         exec(f"label_{row}_{col}.place(x=xbox, y=ybox)")
 
 
-root.geometry("700x500")
+root.geometry("700x650")
 root.resizable(False,False)
 root.mainloop()
 
