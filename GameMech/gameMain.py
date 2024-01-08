@@ -1,7 +1,6 @@
 import random
-from spellchecker import SpellChecker
-spell = SpellChecker()
-from colorama import Fore,Back  #Module to import the color
+from colorama import Fore  #Module to import the color
+
 
 def newWord():   #Function to generate new Word          
     with open("/home/reek/Desktop/WordleGame/GameMech/wordList.txt") as f:
@@ -18,34 +17,33 @@ def takeInput():
     if len(userWord) != 5:
         print("Must be 5 letters")   #If length is not 5 call the function again
     else:
-        userList = check_word_spelling(userWord)
+        userList = creating_list(userWord)
         return userList    #return userList
-
-def check_word_spelling(word):
-    corrected_word = spell.correction(word)
-    if word == corrected_word:
-        userList = creating_list(word)
-        return userList
-    else:
-        print("Not a valid word!")
-        return []  # Return an empty list to indicate an invalid word
 
 def creating_list(word):
     s = list(word.strip()) #Strip removes the nextline 
     return s
 
-def compare(genList, userList):  #Function for comparing
+def compare(genList, userList):
     if len(genList) != len(userList):
         print("Both lists must have the same length.")
-    else :    
-        for user_item in userList:
-            not_present = True
-            for gen_item in genList:
-                if user_item == gen_item:
-                    not_present = False
-                    break
-            if not_present:
-                print(Fore.CYAN + user_item, end=" ")
+        return
+
+    correct_positions = 0
+    correct_characters = 0
+    incorrect_characters = []
+
+    for i in range(len(genList)):
+        if userList[i] == genList[i]:
+            correct_positions += 1
+            print(Fore.GREEN + userList[i], end=" ")
+        elif userList[i] in genList:
+            correct_characters += 1
+            print(Fore.YELLOW + userList[i], end=" ")
+        else:
+            incorrect_characters.append(userList[i])
+            print(Fore.CYAN + userList[i], end=" ")
+
 
 gl = newWord()#genList
 ul = takeInput()#userList
