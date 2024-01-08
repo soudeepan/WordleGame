@@ -1,18 +1,26 @@
+import random
 from tkinter import *
-
-
-# list of all words 
-
-with open("wordList.txt") as f:
-        wordlist = list(f)
 
 
 # def for checking if word exists in the wordlist
 
+with open("wordList.txt") as f:
+        mylist = list(f)
+
+wordList = [] # contains the list of all valid words
+
+for words in mylist:
+    wordList.append(words.strip())
+
+
+genList = list((random.choice(wordList)).upper()) # contains the word to guess in a list 
+print(genList)
+
+
 def presentInList(word):
 
-    global wordlist
-    if(word in wordlist):
+    
+    if(word in wordList):
         return True
     return False
 
@@ -22,21 +30,24 @@ def presentInList(word):
 
 def isValid(word):
 
-    if len(word) == 5:
+    if len(word) == 5 and presentInList(word):      
         return True
     return False
 
 # def for changing the subheading to "enter word", "you lose" , "you won"
 
 inputCounter=0
+name="User"
 
 def change_heading():
     
     global inputCounter
+    global name
     check_word=inputBox.get()
 
     if inputCounter==0:
-        subLabel.config(text=check_word + " ! Enter your Guess word")
+        name = inputBox.get()
+        subLabel.config(text=name + " ! Enter your Guess word")
         inputCounter+=1
     
     elif inputCounter==6 and isValid(check_word) :
@@ -44,7 +55,11 @@ def change_heading():
         enterButton.config(DISABLED)
 
     elif isValid(check_word):
+        subLabel.config(text=name + " ! Enter your Guess word")
         inputCounter+=1
+    else:
+        subLabel.config(text="Word not found in wordlist. Enter another word!")
+
 
     
 # def for updating the labels
@@ -54,9 +69,21 @@ def updateLabels(inputWord):
     
     inputWord.strip()
     inputWord = inputWord.upper()
+    userList = list(inputWord)
+
     for col in range(5):
         exec(f"label_{inputCounter-1}_{col}.config(text=inputWord[col])")
 
+        #print(userList[col] +"  "+ genList[col]+"\n")
+
+        if userList[col] == genList[col]:
+            exec(f"label_{inputCounter-1}_{col}.config(bg=box_green,fg=white)")
+        elif userList[col] in genList:
+            exec(f"label_{inputCounter-1}_{col}.config(bg=box_yellow,fg=white)")
+        else:
+            exec(f"label_{inputCounter-1}_{col}.config(bg=box_grey,fg=white)")
+
+    winCheck(userList,genList)
         
 # def for performing all functions
 
@@ -68,9 +95,25 @@ def allFunctions(inputWord):
 
     change_heading()
 
+# def for checking winning condition
+    
+def winCheck(userList,genList):
+
+    print(userList == genList)
+
+    if(userList == genList):
+        subLabel.config(text="CONGRATULATIONS! YOU WON")
+        enterButton.config(DISABLED)
+
+
 
 
 # The UI of Wordle Game
+
+box_green = "#79B851"
+box_yellow = "#F3C237"
+box_grey = "#A4AEC4"
+
 
 black = "#15141A"
 yellow = "#F8CF2C"
