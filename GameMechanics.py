@@ -48,14 +48,18 @@ def change_heading():
         name = inputBox.get()
         subLabel.config(text=name + " ! Enter your Guess word")
         inputCounter += 1
+        inputBox.delete(0, 'end') #To clear the input box after each entry
     elif inputCounter == 6 and isValid(check_word):
         subLabel.config(text="YOU LOSE!")
         enterButton.config(DISABLED)
+        inputBox.delete(0, 'end') #To clear the input box after each entry
     elif isValid(check_word):
         subLabel.config(text=name + " ! Enter your Guess word")
         inputCounter += 1
+        inputBox.delete(0, 'end') #To clear the input box after each entry
     else:
         subLabel.config(text="Word not found in wordlist. Enter another word!")
+        inputBox.delete(0, 'end') #To clear the input box after each entry
 
 
 def updateLabels(inputWord):
@@ -90,7 +94,7 @@ def allFunctions(inputWord):
 def winCheck(userList):
     global inputCounter
     if userList == genList:
-        subLabel.config(text="CONGRATULATIONS! YOU WON")
+        subLabel.config(text="CONGRATULATIONS! YOU WON",bg=black,fg=green)##Changed the color to green
         enterButton.config(state="disabled")
 
 
@@ -102,7 +106,7 @@ box_green = "#79B851"
 box_yellow = "#F3C237"
 box_grey = "#A4AEC4"
 
-
+green="#00fc00"
 black = "#15141A"
 yellow = "#F8CF2C"
 red = "#AB202A"
