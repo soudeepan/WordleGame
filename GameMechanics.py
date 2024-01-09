@@ -14,8 +14,9 @@ for words in mylist:
 
 
 genList = list((random.choice(wordList)).upper()) # contains the word to guess in a list 
+finalWord = ''.join(genList).capitalize()
 
-# print(genList)
+print(genList)
 
 
 def presentInList(word):
@@ -50,15 +51,15 @@ def change_heading():
         inputCounter += 1
         inputBox.delete(0, 'end') #To clear the input box after each entry
     elif inputCounter == 6 and isValid(check_word):
-        subLabel.config(text="YOU LOSE!")
+        subLabel.config(text="YOU LOST! The word was "+ finalWord,bg=black,fg=red)
         enterButton.config(DISABLED)
         inputBox.delete(0, 'end') #To clear the input box after each entry
     elif isValid(check_word):
-        subLabel.config(text=name + " ! Enter your Guess word")
+        subLabel.config(text=name + " ! Enter your Guess word",bg=black,fg=orange)
         inputCounter += 1
         inputBox.delete(0, 'end') #To clear the input box after each entry
     else:
-        subLabel.config(text="Word not found in wordlist. Enter another word!")
+        subLabel.config(text="Word not found in wordlist. Enter another word!",bg=black,fg=red)
         inputBox.delete(0, 'end') #To clear the input box after each entry
 
 
@@ -106,6 +107,7 @@ box_green = "#79B851"
 box_yellow = "#F3C237"
 box_grey = "#A4AEC4"
 
+orange='#fa8128'
 green="#00fc00"
 black = "#15141A"
 yellow = "#F8CF2C"
@@ -121,7 +123,7 @@ root.config(background=black)
 wordleLabel = Label(root,text = "Wordle",font=(my_font,50),bg=black,fg=yellow)
 wordleLabel.pack(pady=5)
 
-subLabel = Label(root,text="Enter Player Name",font=(my_font,20),bg=black,fg=red)
+subLabel = Label(root,text="Enter Player Name",font=(my_font,20),bg=black,fg=orange)
 subLabel.pack(pady=5)
 
 inputBox = Entry(root, font=(my_font,10),borderwidth="3",relief="flat",bg=grey,fg=white)
