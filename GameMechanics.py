@@ -16,7 +16,7 @@ for words in mylist:
 genList = list((random.choice(wordList)).upper()) # contains the word to guess in a list 
 finalWord = ''.join(genList).capitalize()
 
-print(genList)
+#print(genList)
 
 
 def presentInList(word):
