@@ -70,6 +70,9 @@ def change_heading():
         subLabel.config(text=name + " ! Enter your Guess word",bg=black,fg=orange)
         inputCounter += 1
         inputBox.delete(0, 'end') #To clear the input box after each entry
+    elif len(check_word )!= 5:
+         subLabel.config(text="Must be a 5 letter word!",bg=black,fg=red)
+         inputBox.delete(0, 'end')
     else:
         subLabel.config(text="Word not found in wordlist. Enter another word!",bg=black,fg=red)
         inputBox.delete(0, 'end') #To clear the input box after each entry
@@ -298,10 +301,10 @@ for row in range(6):
         exec(f"label_{row}_{col}.place(x=xbox, y=ybox)")
 
 replayButton = Button(root, font=(my_font, 12), text="Replay", command=replay_game, bg="yellow", fg="black")
-replayButton.pack(side=LEFT,padx=100, pady=20, anchor=S) #[tuple padx -> space in left,space in right]
+replayButton.pack(side=LEFT,padx=[240,10], pady=20, anchor=S) #[tuple padx -> space in left,space in right]
 
 leaderboardButton = Button(root, font=(my_font, 12), text="Leaderboard", command=show_leaderboard, bg="orange", fg="black")
-leaderboardButton.pack(side=RIGHT,padx=100, pady=20, anchor=S)
+leaderboardButton.pack(side=LEFT,pady=20, anchor=S)
 
 
 
