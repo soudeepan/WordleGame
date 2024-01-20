@@ -1,5 +1,4 @@
 import random
-import csv
 from tkinter import *
 
 
@@ -27,7 +26,6 @@ print(genList)
 
 def presentInList(word):
 
-    
     if(word in wordList):
         return True
     return False
@@ -37,7 +35,7 @@ def presentInList(word):
 
 
 
-# def for checking is the input word is not empty or invalid and has length of 5
+# def for checking if the input word is not empty or invalid and has length of 5
 
 def isValid(word):
 
@@ -99,7 +97,7 @@ def updateLabels(inputWord):
         else:
             exec(f"label_{inputCounter - 1}_{col}.config(bg=box_grey,fg=white)")
 
-    #winCheck(userList)
+    
 
 
 
@@ -160,6 +158,9 @@ def show_leaderboard():
     leaderboard_header = Label(leaderboard,text="Leaderboard",bg=black,fg=orange,font=(my_font,30))
     leaderboard_header.pack(pady=15)
     
+    label = Label(leaderboard,text="NAME      AVERAGE",bg=black,fg=yellow,font=(my_font,25))
+    label.pack(pady=5)
+
     for row in range(10):
         exec(f"rank_{row} = Label(leaderboard,text=\"Hello\",bg=black,fg=green,font=(my_font,20))")
         exec(f"rank_{row}.pack(pady=5)")
@@ -310,5 +311,12 @@ leaderboardButton.pack(side=LEFT,pady=20, anchor=S)
 root.geometry("700x675")
 root.resizable(False,False)
 root.mainloop()
+
+
+
+
+
+
+
 
 
