@@ -141,7 +141,7 @@ def show_leaderboard():
 
 
 
-    leaderboardList = [f"{n}     {v}" for n, v in sorted_dict[:10]]
+    leaderboardList = [f"{n}                   {v}" for n, v in sorted_dict[:10]]
     #print(leaderboardList)
 
 
@@ -158,11 +158,11 @@ def show_leaderboard():
     leaderboard_header = Label(leaderboard,text="Leaderboard",bg=black,fg=orange,font=(my_font,30))
     leaderboard_header.pack(pady=15)
     
-    label = Label(leaderboard,text="NAME      AVERAGE",bg=black,fg=yellow,font=(my_font,25))
+    label = Label(leaderboard,text="NAME        AVERAGE",bg=black,fg=yellow,font=(my_font,20))
     label.pack(pady=5)
 
     for row in range(10):
-        exec(f"rank_{row} = Label(leaderboard,text=\"Hello\",bg=black,fg=green,font=(my_font,20))")
+        exec(f"rank_{row} = Label(leaderboard,text=\"Hello\",bg=black,fg=green,font=(my_font,15))")
         exec(f"rank_{row}.pack(pady=5)")
 
 
