@@ -1,11 +1,13 @@
 import random
+import csv
 from tkinter import *
 
 
 # def for checking if word exists in the wordlist
 
 with open("wordList.txt") as f:
-        mylist = list(f)
+    mylist = list(f)
+
 
 wordList = [] # contains the list of all valid words
 
@@ -16,7 +18,11 @@ for words in mylist:
 genList = list((random.choice(wordList)).upper()) # contains the word to guess in a list 
 finalWord = ''.join(genList).capitalize()
 
-#print(genList)
+print(genList)
+
+
+
+
 
 
 def presentInList(word):
@@ -28,6 +34,9 @@ def presentInList(word):
 
 
 
+
+
+
 # def for checking is the input word is not empty or invalid and has length of 5
 
 def isValid(word):
@@ -35,6 +44,11 @@ def isValid(word):
     if len(word) == 5 and presentInList(word):      
         return True
     return False
+
+
+
+
+
 
 # def for changing the subheading to "enter word", "you lose" , "you won"
 
@@ -63,6 +77,11 @@ def change_heading():
         inputBox.delete(0, 'end') #To clear the input box after each entry
 
 
+
+
+
+
+
 def updateLabels(inputWord):
     inputWord = inputWord.strip().upper()
     userList = list(inputWord)
@@ -77,13 +96,84 @@ def updateLabels(inputWord):
         else:
             exec(f"label_{inputCounter - 1}_{col}.config(bg=box_grey,fg=white)")
 
-    winCheck(userList)
+    #winCheck(userList)
+
+
+
+
 
 #def for storing winner list
 def show_leaderboard():
-    print('hey!there complete this function')
+
+    leaderboard_dict = {}
+
+    with open("player.txt","r") as p:
+        tempList = list(p)
+    
+    #taking unique element with total no. of guesses and total no. of times played into a dict
+    for items in tempList:
+        items = items.strip()
+        component = items.split("-")
+
+        if component[0] in leaderboard_dict:
+            total, played = leaderboard_dict[component[0]]
+            leaderboard_dict[component[0]] = [total + int(component[1]), played + 1]
+        else:
+            leaderboard_dict[component[0]] = [int(component[1]), 1]
+
+ 
+
+    #updating the leaderboard dict to store the average
+            
+    for items in leaderboard_dict:
+        total, played = leaderboard_dict[items]
+        leaderboard_dict[items] = round(total/played,2)
+
 
     
+
+    #sorting the directory
+    sorted_dict = sorted(leaderboard_dict.items(), key=lambda kv: 
+                 (kv[1], kv[0]))
+
+    
+
+
+
+    leaderboardList = [f"{n}     {v}" for n, v in sorted_dict[:10]]
+    #print(leaderboardList)
+
+
+
+    #UI of Leaderboards
+
+    leaderboard = Toplevel()
+    leaderboard.title("Top 10 Players")
+    leaderboard.geometry("500x600")
+    leaderboard.resizable(False,False)
+    leaderboard.config(bg=black)
+
+
+    leaderboard_header = Label(leaderboard,text="Leaderboard",bg=black,fg=orange,font=(my_font,30))
+    leaderboard_header.pack(pady=15)
+    
+    for row in range(10):
+        exec(f"rank_{row} = Label(leaderboard,text=\"Hello\",bg=black,fg=green,font=(my_font,20))")
+        exec(f"rank_{row}.pack(pady=5)")
+
+
+    for index,items in enumerate(leaderboardList):
+        exec(f"rank_{index}.config(text=items)")
+        
+    
+
+    
+
+
+
+
+
+
 #def for replay
 def replay_game():
     global inputCounter, name, genList, finalWord
@@ -109,6 +199,10 @@ def replay_game():
 
    
 
+
+
+
+
 # def for performing all functions
 
 def allFunctions(inputWord):
@@ -120,13 +214,32 @@ def allFunctions(inputWord):
     change_heading()
     winCheck(list(inputWord.upper()))  #called the winlist function explicitly
 
+
+
+
+
+
+
 #def for show winner
       
 def winCheck(userList):
-    global inputCounter
+    global inputCounter,name
     if userList == genList:
         subLabel.config(text="CONGRATULATIONS! YOU WON",bg=black,fg=green)##Changed the color to green
         enterButton.config(state="disabled")
+
+        #leaderboard
+        with open("player.txt","a") as p:
+            p.writelines('-'.join([name.upper(),str(inputCounter-1)+"\n"]))       
+        p.close()
+
+
+
+
+
+
+
+
 
 
 # The UI of Wordle Game
@@ -185,7 +298,7 @@ for row in range(6):
 replayButton = Button(root, font=(my_font, 12), text="Replay", command=replay_game, bg="yellow", fg="black")
 replayButton.pack(side=LEFT, padx=[240,10], pady=20, anchor=S) #[tuple padx -> space in left,space in right]
 
-leaderboardButton = Button(root, font=(my_font, 12), text="Leaderboard", command=show_leaderboard, bg="black", fg="white")
+leaderboardButton = Button(root, font=(my_font, 12), text="Leaderboard", command=show_leaderboard, bg="orange", fg="black")
 leaderboardButton.pack(side=LEFT, pady=20, anchor=S)
 
 
