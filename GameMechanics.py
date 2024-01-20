@@ -79,6 +79,36 @@ def updateLabels(inputWord):
 
     winCheck(userList)
 
+#def for storing winner list
+def show_leaderboard():
+    print('hey!there complete this function')
+
+    
+#def for replay
+def replay_game():
+    global inputCounter, name, genList, finalWord
+
+    # Reset variables
+    inputCounter = 0
+    name = "User"
+    genList = list((random.choice(wordList)).upper())  # Generate a new word
+    print(genList)
+    finalWord = ''.join(genList).capitalize()
+
+    # Reset labels
+    for row in range(6):
+        for col in range(5):
+            exec(f"label_{row}_{col}.config(text='', bg=box_bg)")
+
+    # Reset input box and heading
+    inputBox.delete(0, 'end')
+    subLabel.config(text="Enter Player Name", bg=black, fg=orange)
+
+    # Enable submit button
+    enterButton.config(state="normal")
+
+   
+
 # def for performing all functions
 
 def allFunctions(inputWord):
@@ -90,15 +120,13 @@ def allFunctions(inputWord):
     change_heading()
     winCheck(list(inputWord.upper()))  #called the winlist function explicitly
 
-# def for checking winning condition
-    
+#def for show winner
+      
 def winCheck(userList):
     global inputCounter
     if userList == genList:
         subLabel.config(text="CONGRATULATIONS! YOU WON",bg=black,fg=green)##Changed the color to green
         enterButton.config(state="disabled")
-
-
 
 
 # The UI of Wordle Game
@@ -119,7 +147,7 @@ grey="#335155"
 root = Tk()
 root.title("Wordle Game")
 root.config(background=black)
-
+ 
 wordleLabel = Label(root,text = "Wordle",font=(my_font,50),bg=black,fg=yellow)
 wordleLabel.pack(pady=5)
 
@@ -154,8 +182,15 @@ for row in range(6):
         exec(f"label_{row}_{col} = Label(root, borderwidth=box_borderwidth, relief=box_relief, bg=box_bg, fg=box_fg,height=box_height, width=box_width, text=text, font=box_font)")
         exec(f"label_{row}_{col}.place(x=xbox, y=ybox)")
 
+replayButton = Button(root, font=(my_font, 12), text="Replay", command=replay_game, bg="yellow", fg="black")
+replayButton.pack(side=LEFT, padx=[240,10], pady=20, anchor=S) #[tuple padx -> space in left,space in right]
 
-root.geometry("700x650")
+leaderboardButton = Button(root, font=(my_font, 12), text="Leaderboard", command=show_leaderboard, bg="black", fg="white")
+leaderboardButton.pack(side=LEFT, pady=20, anchor=S)
+
+
+
+root.geometry("700x675")
 root.resizable(False,False)
 root.mainloop()
 
