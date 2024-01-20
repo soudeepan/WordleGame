@@ -254,8 +254,9 @@ black = "#15141A"
 yellow = "#F8CF2C"
 red = "#AB202A"
 white = "#FFFFFF"
-my_font="Roboto"
 grey="#335155"
+
+my_font="Roboto"
 
 root = Tk()
 root.title("Wordle Game")
@@ -296,10 +297,10 @@ for row in range(6):
         exec(f"label_{row}_{col}.place(x=xbox, y=ybox)")
 
 replayButton = Button(root, font=(my_font, 12), text="Replay", command=replay_game, bg="yellow", fg="black")
-replayButton.pack(side=LEFT, padx=[240,10], pady=20, anchor=S) #[tuple padx -> space in left,space in right]
+replayButton.pack(side=LEFT,padx=100, pady=20, anchor=S) #[tuple padx -> space in left,space in right]
 
 leaderboardButton = Button(root, font=(my_font, 12), text="Leaderboard", command=show_leaderboard, bg="orange", fg="black")
-leaderboardButton.pack(side=LEFT, pady=20, anchor=S)
+leaderboardButton.pack(side=RIGHT,padx=100, pady=20, anchor=S)
 
 
 
