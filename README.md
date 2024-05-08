@@ -1,6 +1,6 @@
 # WordleGame
 
-We have made the game of Wordle in Python along with a Leaderboard System using Tkinter module to make the GUI.
+The game of Wordle in Python along with a Leaderboard System using Tkinter module to make the GUI.
 
 Wordle is a game where players have to guess a secret five-letter word within a limited number of attempts. The game gained widespread popularity particularly in early 2022. Here's how it works:
 
